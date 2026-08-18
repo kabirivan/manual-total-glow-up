@@ -1090,6 +1090,121 @@
 .manual-page .bebida-cadena .grupo-c li:last-child { border-bottom: 0; }
 .manual-page .bebida-cadena .grupo-c li strong { color: var(--paper); font-weight: 600; }
 
+/* ---- Actividades flip cards ---- */
+.manual-page .actividades-flip {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+@media (max-width: 640px) {
+  .manual-page .actividades-flip { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+}
+.manual-page .act-card {
+  aspect-ratio: 1 / 1;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  perspective: 1000px;
+  font: inherit;
+  text-align: left;
+}
+.manual-page .act-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.manual-page .act-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.manual-page .act-card.flipped .act-inner {
+  transform: rotateY(180deg);
+}
+.manual-page .act-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--void);
+  border: 1px solid var(--iron);
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.manual-page .act-card:hover .act-front { border-color: var(--edge); }
+.manual-page .act-front { justify-content: space-between; }
+.manual-page .act-front .cat {
+  font-family: var(--m-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0;
+}
+.manual-page .act-front b {
+  font-family: var(--m-display);
+  font-weight: 700;
+  font-size: clamp(15px, 2.2vw, 18px);
+  color: var(--paper);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin: auto 0 0;
+  display: block;
+}
+.manual-page .act-front .hint {
+  font-family: var(--m-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--ash);
+  text-transform: uppercase;
+  margin-top: 10px;
+  align-self: flex-end;
+}
+.manual-page .act-back {
+  transform: rotateY(180deg);
+  background: var(--pit);
+  border-color: var(--gold);
+  padding: 14px 14px 12px;
+}
+.manual-page .act-back b {
+  font-family: var(--m-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--gold);
+  line-height: 1.15;
+  margin: 0 0 6px;
+  display: block;
+}
+.manual-page .act-back p {
+  font-size: 11.5px;
+  color: var(--bone);
+  line-height: 1.45;
+  margin: 0;
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--iron) transparent;
+}
+.manual-page .act-back p::-webkit-scrollbar { width: 3px; }
+.manual-page .act-back p::-webkit-scrollbar-thumb { background: var(--iron); }
+.manual-page .act-back .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-top: 6px;
+}
+.manual-page .act-back .tag {
+  font-family: var(--m-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--ash);
+  padding: 2px 5px;
+  border: 1px solid var(--iron);
+  background: transparent;
+}
+
 /* ---- Actividades juntos ---- */
 .manual-page .filtros-cat {
   display: flex;

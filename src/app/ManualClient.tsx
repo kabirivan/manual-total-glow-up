@@ -202,6 +202,16 @@ export default function ManualClient() {
   const [catFiltro, setCatFiltro] = useState<string>('Todo');
   const [carIdx, setCarIdx] = useState(0);
   const carRef = useRef<HTMLDivElement>(null);
+  const [flippedActs, setFlippedActs] = useState<Set<string>>(new Set());
+
+  const toggleFlip = useCallback((n: string) => {
+    setFlippedActs((prev) => {
+      const next = new Set(prev);
+      if (next.has(n)) next.delete(n);
+      else next.add(n);
+      return next;
+    });
+  }, []);
 
   const actividadesFiltradas = useMemo(
     () => (catFiltro === 'Todo' ? ACTIVIDADES : ACTIVIDADES.filter((a) => a.c === catFiltro)),
@@ -240,6 +250,37 @@ export default function ManualClient() {
       `${DIA_LARGO[d.getDay()]} · ${d.getDate()} ${MES[d.getMonth()]} ${d.getFullYear()}`
     );
     setHoyLabel(`hoy · ${d.getDate()} ${MES[d.getMonth()]}`);
+
+    if (typeof window !== 'undefined') {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = 'manual';
+      }
+      if (window.location.hash) {
+        window.history.replaceState(
+          null,
+          '',
+          window.location.pathname + window.location.search
+        );
+      }
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const handler = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      const anchor = target?.closest('a[href^="#"]') as HTMLAnchorElement | null;
+      if (!anchor) return;
+      const id = anchor.getAttribute('href')?.slice(1);
+      if (!id) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      e.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    document.addEventListener('click', handler);
+    return () => document.removeEventListener('click', handler);
   }, []);
 
   const persist = useCallback((next: Data) => {
@@ -623,21 +664,52 @@ export default function ManualClient() {
             ))}
           </div>
 
-          <div className="actividades">
-            {actividadesFiltradas.map((a) => (
-              <div className="actividad" key={a.n}>
-                <span className="cat">{a.c}</span>
-                <b>{a.n}</b>
-                <p>{a.p}</p>
-                <div className="tags">
-                  {a.t.map((tag) => (
-                    <span key={tag} className="tag">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
+          <p
+            style={{
+              fontFamily: 'var(--m-mono)',
+              fontSize: 11,
+              color: 'var(--ash)',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              margin: '0 0 14px',
+            }}
+          >
+            Toca una tarjeta para ver el detalle
+          </p>
+
+          <div className="actividades-flip">
+            {actividadesFiltradas.map((a) => {
+              const isFlipped = flippedActs.has(a.n);
+              return (
+                <button
+                  type="button"
+                  className={`act-card ${isFlipped ? 'flipped' : ''}`}
+                  key={a.n}
+                  onClick={() => toggleFlip(a.n)}
+                  aria-pressed={isFlipped}
+                  aria-label={`${a.n} — ${a.c}. ${isFlipped ? 'Ver menos' : 'Ver detalle'}`}
+                >
+                  <div className="act-inner">
+                    <div className="act-face act-front">
+                      <span className="cat">{a.c}</span>
+                      <b>{a.n}</b>
+                      <span className="hint" aria-hidden="true">Ver +</span>
+                    </div>
+                    <div className="act-face act-back">
+                      <b>{a.n}</b>
+                      <p>{a.p}</p>
+                      <div className="tags">
+                        {a.t.map((tag) => (
+                          <span key={tag} className="tag">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </section>
 
