@@ -408,9 +408,8 @@ export default function ManualClient() {
         </div>
 
         <nav className="nav">
-          <a href="#pilares">Pilares</a>
-          <a href="#pasiones">Pasiones</a>
           <a href="#juntos">Juntos</a>
+          <a href="#pasiones">Pasiones</a>
           <a href="#bebidas">Bebidas</a>
           <a href="#comida">Comida</a>
           <a href="#protocolo">Rituales</a>
@@ -470,7 +469,7 @@ export default function ManualClient() {
             <a href="#juntos" className="primary">
               Sembrar el primer plan
             </a>
-            <a href="#pilares">Ver los pilares</a>
+            <a href="#bebidas">Bebidas y comida</a>
             <a href="#zona-roja">Zona roja</a>
           </div>
         </section>
@@ -592,77 +591,53 @@ export default function ManualClient() {
           <div className="cap-info">
             <p className="kick">Capítulo · uno</p>
             <h2>El norte.</h2>
-            <p>Hacia dónde caminamos y qué nos aleja. Los cimientos antes que la técnica.</p>
+            <p>Lo que vamos a hacer juntos, y lo que nos aleja del foco. La razón antes que la técnica.</p>
           </div>
         </aside>
 
-        {/* ---- PILARES ---- */}
-        <section id="pilares" className="bloque">
+        {/* ---- JUNTOS ---- */}
+        <section id="juntos" className="bloque">
           <h2 className="section">
             <span>
-              <span className="n">01</span> — Los cuatro pilares
+              <span className="n">01</span> — Planes juntos
             </span>
-            <span>norte</span>
+            <span>lo que hacemos como hermanos</span>
           </h2>
           <p className="section-lead">
-            Un solo pilar cae y se caen los otros. Los <em>cuatro</em> se sostienen juntos.
+            Acá empieza el manual de verdad. El foco no se encuentra en la cabeza — se encuentra{' '}
+            <em>haciendo cosas</em>, y las que se sostienen son las que se hacen con alguien que
+            también está en esto. Este catálogo es <strong>nuestro</strong>: elige uno, escríbele,
+            pónganle fecha. Aparecer los dos ya es la mitad.
           </p>
 
-          <div className="pillars">
-            <div className="pillar">
-              <b className="num">01</b>
-              <p className="rol">Cuerpo</p>
-              <h3>
-                Presencia
-                <br />
-                física
-              </h3>
-              <p>
-                Espalda armada, hombros abiertos, cara despierta. No es estética: es la señal de que
-                hay disciplina detrás. El cuerpo se cuida seis días a la semana, no dos.
-              </p>
-            </div>
-            <div className="pillar">
-              <b className="num">02</b>
-              <p className="rol">Cabeza</p>
-              <h3>
-                Capacidad
-                <br />
-                resolutiva
-              </h3>
-              <p>
-                Ver el problema, cortar el ruido, decidir, ejecutar. Se entrena arreglando cosas
-                pequeñas todos los días hasta que arreglar cosas grandes deja de asustar.
-              </p>
-            </div>
-            <div className="pillar">
-              <b className="num">03</b>
-              <p className="rol">Juicio</p>
-              <h3>
-                Criterio
-                <br />
-                propio
-              </h3>
-              <p>
-                Saber lo que piensas antes de que te lo pregunten. Se construye leyendo cosas
-                difíciles, hablando poco y escribiendo lo que crees para poder defenderlo.
-              </p>
-            </div>
-            <div className="pillar">
-              <b className="num">04</b>
-              <p className="rol">Base</p>
-              <h3>
-                Sobriedad
-                <br />
-                funcional
-              </h3>
-              <p>
-                Sobrio no es solo del vaso. Es sobrio de <em>todo lo que te desenfoca</em> —
-                pantalla, comida basura, drama, escape fácil. Es dejar de anestesiarte para que los
-                otros tres pilares puedan crecer. Si la pasión vuelve, los otros pilares se caen.
-                Todos, siempre, sin excepción.
-              </p>
-            </div>
+          <div className="filtros-cat">
+            {CATEGORIAS_ACT.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                className={`filtro-pill ${catFiltro === cat ? 'on' : ''}`}
+                onClick={() => setCatFiltro(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          <div className="actividades">
+            {actividadesFiltradas.map((a) => (
+              <div className="actividad" key={a.n}>
+                <span className="cat">{a.c}</span>
+                <b>{a.n}</b>
+                <p>{a.p}</p>
+                <div className="tags">
+                  {a.t.map((tag) => (
+                    <span key={tag} className="tag">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -818,62 +793,16 @@ export default function ManualClient() {
           <div className="cap-n">II</div>
           <div className="cap-info">
             <p className="kick">Capítulo · dos</p>
-            <h2>El plan compartido.</h2>
-            <p>Lo que hacemos juntos, lo que tomamos y lo que llenamos la nevera. La parte que da la vuelta a la cabeza.</p>
+            <h2>Lo que consumimos.</h2>
+            <p>Con qué reemplazamos el trago y con qué llenamos la nevera. Los cambios concretos que se hacen esta semana.</p>
           </div>
         </aside>
-
-        {/* ---- JUNTOS ---- */}
-        <section id="juntos" className="bloque">
-          <h2 className="section">
-            <span>
-              <span className="n">03</span> — Planes juntos
-            </span>
-            <span>lo que hacemos como hermanos</span>
-          </h2>
-          <p className="section-lead">
-            Acá empieza el manual de verdad. El foco no se encuentra en la cabeza — se encuentra{' '}
-            <em>haciendo cosas</em>, y las que se sostienen son las que se hacen con alguien que
-            también está en esto. Este catálogo es <strong>nuestro</strong>: elegí uno, escribile,
-            pónganle fecha. Aparecer los dos ya es la mitad.
-          </p>
-
-          <div className="filtros-cat">
-            {CATEGORIAS_ACT.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                className={`filtro-pill ${catFiltro === cat ? 'on' : ''}`}
-                onClick={() => setCatFiltro(cat)}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          <div className="actividades">
-            {actividadesFiltradas.map((a) => (
-              <div className="actividad" key={a.n}>
-                <span className="cat">{a.c}</span>
-                <b>{a.n}</b>
-                <p>{a.p}</p>
-                <div className="tags">
-                  {a.t.map((tag) => (
-                    <span key={tag} className="tag">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
 
         {/* ---- BEBIDAS ---- */}
         <section id="bebidas" className="bloque">
           <h2 className="section">
             <span>
-              <span className="n">04</span> — Bebidas para reemplazar el trago
+              <span className="n">03</span> — Bebidas para reemplazar el trago
             </span>
             <span>vaso en la mano, sin alcohol</span>
           </h2>
@@ -953,7 +882,7 @@ export default function ManualClient() {
         <section id="comida" className="bloque">
           <h2 className="section">
             <span>
-              <span className="n">05</span> — Comida que baja la ansiedad
+              <span className="n">04</span> — Comida que baja la ansiedad
             </span>
             <span>guía de compras</span>
           </h2>
@@ -1127,7 +1056,7 @@ export default function ManualClient() {
         <section id="protocolo" className="bloque">
           <h2 className="section">
             <span>
-              <span className="n">06</span> — Protocolo diario
+              <span className="n">05</span> — Protocolo diario
             </span>
             <span>ritual</span>
           </h2>
@@ -1208,7 +1137,7 @@ export default function ManualClient() {
         <section id="victorias" className="bloque">
           <h2 className="section">
             <span>
-              <span className="n">07</span> — Registro de victorias
+              <span className="n">06</span> — Registro de victorias
             </span>
             <span suppressHydrationWarning>{winCountLabel}</span>
           </h2>
@@ -1260,7 +1189,7 @@ export default function ManualClient() {
         <section id="cuerpo" className="bloque">
           <h2 className="section">
             <span>
-              <span className="n">08</span> — Programa de cuerpo
+              <span className="n">07</span> — Programa de cuerpo
             </span>
             <span>12 semanas</span>
           </h2>
@@ -1384,7 +1313,7 @@ export default function ManualClient() {
         <section id="criterio" className="bloque">
           <h2 className="section">
             <span>
-              <span className="n">09</span> — Criterio propio
+              <span className="n">08</span> — Criterio propio
             </span>
             <span>lectura + escritura</span>
           </h2>
@@ -1500,7 +1429,7 @@ export default function ManualClient() {
         <section id="presencia" className="bloque">
           <h2 className="section">
             <span>
-              <span className="n">10</span> — Presencia
+              <span className="n">09</span> — Presencia
             </span>
             <span>cómo estás en la sala</span>
           </h2>
@@ -1576,7 +1505,7 @@ export default function ManualClient() {
         <section id="higiene" className="bloque">
           <h2 className="section">
             <span>
-              <span className="n">11</span> — Higiene y aroma
+              <span className="n">10</span> — Higiene y aroma
             </span>
             <span>cómo llegas antes de hablar</span>
           </h2>
@@ -1871,7 +1800,7 @@ export default function ManualClient() {
         <section id="zona-roja" className="bloque">
           <h2 className="section">
             <span>
-              <span className="n">12</span> — Zona roja
+              <span className="n">11</span> — Zona roja
             </span>
             <span>plan de recaída</span>
           </h2>
@@ -1998,7 +1927,7 @@ export default function ManualClient() {
         <section id="alternativas" className="bloque">
           <h2 className="section">
             <span>
-              <span className="n">13</span> — Qué hacer en su lugar
+              <span className="n">12</span> — Qué hacer en su lugar
             </span>
             <span>sustituciones</span>
           </h2>
@@ -2071,7 +2000,7 @@ export default function ManualClient() {
         <section id="cartas" className="bloque">
           <h2 className="section">
             <span>
-              <span className="n">14</span> — Cartas del hermano
+              <span className="n">13</span> — Cartas del hermano
             </span>
             <span>léelas cuando toque</span>
           </h2>
@@ -2139,8 +2068,8 @@ export default function ManualClient() {
             </p>
             <p>
               Ahora empieza la parte interesante: no defenderte de la pasión que te desenfoca, sino{' '}
-              <em>construir</em> lo que va a ocupar ese espacio para siempre. Vuelve a los pilares.
-              Elige uno para los próximos 90 días. Vamos.
+              <em>construir</em> lo que va a ocupar ese espacio para siempre. Vuelve a los planes
+              juntos, elige uno nuevo para los próximos 90 días. Vamos.
             </p>
             <span className="from">— tu hermano</span>
           </div>
@@ -2150,7 +2079,7 @@ export default function ManualClient() {
         <section id="dias" className="bloque">
           <h2 className="section">
             <span>
-              <span className="n">15</span> — Contador de días en foco
+              <span className="n">14</span> — Contador de días en foco
             </span>
             <span suppressHydrationWarning>{hoyLabel}</span>
           </h2>
@@ -2232,6 +2161,11 @@ export default function ManualClient() {
           </div>
         </footer>
       </div>
+
+      <a href="#juntos" className="fab-juntos" aria-label="Ir a Planes juntos">
+        <span className="fab-icon" aria-hidden="true">◆</span>
+        <span className="fab-label">Planes juntos</span>
+      </a>
     </main>
   );
 }

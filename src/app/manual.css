@@ -121,6 +121,7 @@
   margin-left: 14px;
   padding-left: 14px;
   border-left: 1px solid var(--iron);
+  white-space: nowrap;
 }
 .manual-page .top-sig em {
   font-style: italic;
@@ -128,7 +129,21 @@
   font-weight: 500;
 }
 @media (max-width: 560px) {
-  .manual-page .top-sig { display: none; }
+  .manual-page .top-sig {
+    font-size: 11px;
+    margin-left: 10px;
+    padding-left: 10px;
+  }
+}
+@media (max-width: 380px) {
+  .manual-page .logo { flex-wrap: wrap; row-gap: 4px; }
+  .manual-page .top-sig {
+    font-size: 10.5px;
+    margin-left: 0;
+    padding-left: 0;
+    border-left: 0;
+    flex-basis: 100%;
+  }
 }
 .manual-page .nav { display: flex; gap: 22px; flex-wrap: wrap; padding: 16px 0 0; }
 .manual-page .nav a {
@@ -1451,6 +1466,65 @@
 
 @media (prefers-reduced-motion: reduce) {
   .manual-page * { transition: none !important; }
+}
+
+/* ---- FAB Planes juntos ---- */
+.manual-page .fab-juntos {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px 14px 16px;
+  background: var(--gold);
+  color: #1a1305;
+  text-decoration: none;
+  border-radius: 999px;
+  font-family: var(--m-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(201, 162, 74, 0.6),
+    0 0 40px rgba(201, 162, 74, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.manual-page .fab-juntos:hover {
+  transform: translateY(-2px);
+  background: #e0b558;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(201, 162, 74, 0.8),
+    0 0 60px rgba(201, 162, 74, 0.4);
+}
+.manual-page .fab-juntos:active { transform: translateY(0); }
+.manual-page .fab-juntos .fab-icon {
+  font-size: 14px;
+  line-height: 1;
+  color: #1a1305;
+}
+.manual-page .fab-juntos .fab-label { display: inline-block; }
+
+@media (max-width: 560px) {
+  .manual-page .fab-juntos {
+    bottom: 18px;
+    right: 18px;
+    padding: 12px 16px 12px 14px;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+  }
+  .manual-page .fab-juntos .fab-icon { font-size: 12px; }
+}
+@media (max-width: 380px) {
+  .manual-page .fab-juntos .fab-label { display: none; }
+  .manual-page .fab-juntos {
+    padding: 14px;
+    width: 48px;
+    height: 48px;
+    justify-content: center;
+    gap: 0;
+  }
+  .manual-page .fab-juntos .fab-icon { font-size: 16px; }
 }
 
 /* ============================================================
