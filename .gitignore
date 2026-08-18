@@ -147,3 +147,5 @@ vite.config.ts.timestamp-*
 
 # next.js generated
 next-env.d.ts
+.vercel
+.env*
